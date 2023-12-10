@@ -231,6 +231,9 @@ class OctopusEnergyRatesCard extends HTMLElement {
             }
         });
 
+        // Save number of rows for card height calculation
+        this.numberOfRows = Math.ceil(filteredRates.length / 2);
+
         const rows_per_col = Math.ceil(rates_list_length / config.cols);
 
         var tables = "";
@@ -365,7 +368,9 @@ class OctopusEnergyRatesCard extends HTMLElement {
     // The height of your card. Home Assistant uses this to automatically
     // distribute all cards over the available columns.
     getCardSize() {
-        return 3;
+        // 2 is the smallest card size (no rates at all),
+        // add this to an estimate of the height based on number of rows
+        return 2 + Math.ceil(28 / 50 * this.numberOfRows);
     }
 }
 
